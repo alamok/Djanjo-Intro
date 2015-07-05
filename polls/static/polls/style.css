@@ -1,0 +1,22 @@
+div a{
+     position:absolute;
+     width:800px;
+     height:1000px;
+     z-index:15;
+     top:50%;
+     left:30%;
+     margin:-100px 0 0 -150px;
+     background:#CCCCCC;
+     font-family: Calibri,Candara,Segoe,Segoe UI,Optima,Arial,sans-serif;
+}
+
+h1 {
+    font-size: 40px;
+    color: white;
+    font-family: Calibri,Candara,Segoe,Segoe UI,Optima,Arial,sans-serif;
+}
+
+body {
+   /* background: white url("images/img1.jpg") no-repeat right bottom;*/
+    background: #141400
+}
