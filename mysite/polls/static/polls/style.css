@@ -1,7 +1,20 @@
 li a {
-    color: green;
+    list-style-type: square;
+    font-family: "Lucida Grande","DejaVu Sans","Bitstream Vera Sans",Verdana,Arial,sans-serif;
 }
 
+
 body {
-    background: white url("images/img1.jpg") no-repeat right bottom;
+    /* background: white url("images/img1.jpg") no-repeat center; */
+    background: #3399FF;
 }
+
+div a {
+    margin: 100 auto;
+    max-width: 1400px;
+    overflow: hidden;
+    font-family: "Lucida Grande","DejaVu Sans","Bitstream Vera Sans",Verdana,Arial,sans-serif;
+    background: #ff;
+}
+
+/* fix how to create a div and control its properties */

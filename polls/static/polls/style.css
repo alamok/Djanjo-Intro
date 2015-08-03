@@ -1,15 +1,3 @@
-div a{
-     position:absolute;
-     width:800px;
-     height:1000px;
-     z-index:15;
-     top:50%;
-     left:30%;
-     margin:-100px 0 0 -150px;
-     background:#CCCCCC;
-     font-family: Calibri,Candara,Segoe,Segoe UI,Optima,Arial,sans-serif;
-}
-
 h1 {
     font-size: 40px;
     color: white;
@@ -17,6 +5,53 @@ h1 {
 }
 
 body {
-   /* background: white url("images/img1.jpg") no-repeat right bottom;*/
-    background: #141400
+    background-color: #EEE;
+    font-family: Helvetica;
+}
+
+#container {
+    background-color: white;
+    width: 800px;
+    height: 800px;
+    margin-left: auto;
+    margin-right:auto;
+}
+
+#header{   
+    color: #003300;
+    background-color: #FFFFCC;
+    padding: 10px;
+}
+
+#navigation{
+    background-color: #CCFF66;
+    color: red;
+    width: 180px;
+    float: left;
+}
+
+#content{
+    padding: 10px;
+    background-color: green;
+    width: 600px;
+    float: right;
+}
+
+#footer{
+    clear: both;
+    bottom: 200px;
+    padding: 5px;
+    position: absolute;
+}
+
+/* elements starting with # are div elements */
+/* elements starting with . are class */
+/* can use both to selected specific class inside a div */
+
+.selected{
+    font-weight: bold;
+}
+
+#navigation li{
+    list-style-type: none;
 }

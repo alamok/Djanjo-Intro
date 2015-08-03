@@ -2,15 +2,16 @@
 
 <link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}" />
 
-
+<DIV id = "container" >
 <h1> Questions .. </h1>
 
 {% if latest_question_list %}
     <ul>
     {% for question in latest_question_list %}
-        <div><a href="/polls/{{ question.id }}/">{{ question.question_text }}</a></div>
+        <div id = "content"><a href="/polls/{{ question.id }}/">{{ question.question_text }}</a></div>
     {% endfor %}
     </ul>
 {% else %}
     <p>No polls are available.</p>
 {% endif %}
+</DIV>
