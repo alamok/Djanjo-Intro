@@ -1,6 +1,6 @@
 h1 {
     font-size: 40px;
-    color: white;
+    color: black;
     font-family: Calibri,Candara,Segoe,Segoe UI,Optima,Arial,sans-serif;
 }
 
@@ -18,7 +18,7 @@ body {
 }
 
 #header{   
-    color: #003300;
+    color: black;
     background-color: #FFFFCC;
     padding: 10px;
 }

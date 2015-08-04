@@ -3,7 +3,6 @@
 <link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}" />
 
 <DIV id = "container" >
-
 <div id = "header">
 <h1> Questions .. </h1>
 </div>
