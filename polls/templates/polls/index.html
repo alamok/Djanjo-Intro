@@ -8,6 +8,11 @@
 <h1> Questions .. </h1>
 </div>
 
+  <form action="/polls/test/" method="post">  
+  Find: <input type="text" name="What to Search" size="35"><br>
+  <input type="submit" value="Add Stuff">
+  </form>
+  
 {% if latest_question_list %}
     <ul>
     {% for question in latest_question_list %}

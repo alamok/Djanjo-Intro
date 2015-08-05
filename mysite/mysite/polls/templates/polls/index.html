@@ -2,22 +2,12 @@
 
 <link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}" />
 
-<DIV id = "container" >
-<div id = "header">
-<h1> Questions .. </h1>
-</div>
-
 {% if latest_question_list %}
     <ul>
     {% for question in latest_question_list %}
-        <div id = "content"><a href="/polls/{{ question.id }}/">{{ question.question_text }}</a></div>
+        <li><a href="/polls/{{ question.id }}/">{{ question.question_text }}</a></li>
     {% endfor %}
     </ul>
 {% else %}
     <p>No polls are available.</p>
 {% endif %}
-<div id = "footer">
-Powered by Organizise
-</div>
-</DIV>
-
