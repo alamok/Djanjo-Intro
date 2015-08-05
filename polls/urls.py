@@ -13,5 +13,6 @@ urlpatterns = [
     url(r'^(?P<question_id>[0-9]+)/vote/$', views.vote, name='vote'),
     
     # ex: /test/
-    url('/test/$', views.test, name='test'),
+    # Dont add the leading / from your test url. You should also add a ^ at the beginning of the regex, so that it matches test but not xtest.
+    url('^test/$', views.test, name='test'),
     ]
