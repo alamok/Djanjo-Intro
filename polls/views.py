@@ -38,5 +38,7 @@ def vote(request, question_id):
     return HttpResponse("you are voting for the question %s." % question_id)
 
 def test( request ):
-    response = "you have reached a test page and the button is working fine"
-    return HttpResponse( response )
+    template = loader.get_template('polls/test.html')
+    response = "this is a test"
+    #return HttpResponse( response )
+    return HttpResponse(template.render())
