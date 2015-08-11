@@ -1,0 +1,28 @@
+{% load staticfiles %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}" />
+
+<DIV id = "container" >
+
+<div id = "header">
+<h1> Questions ..</h1>
+</div>
+
+  <form action="/polls/test/" method="post">  
+  Find: <input type="text" name="" size="35">
+  <input type="submit" value="Add Stuff">
+  </form>
+  
+{% if latest_question_list %}
+    <ul>
+    {% for question in latest_question_list %}
+        <div id = "content"><a href="/polls/{{ question.id }}/">{{ question.question_text }}</a></div>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No polls are available.</p>
+{% endif %}
+<div id = "footer">
+Powered by Organizise
+</div>
+</DIV>

@@ -1,0 +1,25 @@
+{% load staticfiles %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}" />
+
+<DIV id = "container" >
+
+<div id = "header">
+<h1> Here is what you entered on the last page. </h1>
+</div>
+
+{% if post_data%}
+    <ul>
+    {% for data in post_data %}
+        <div id = "content">{{ data }}</div>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No data in post are available.</p>
+{% endif %}
+
+
+<div id = "footer">
+Powered by Organizise
+</div>
+</DIV>
