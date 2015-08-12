@@ -22,6 +22,15 @@ def index(request):
     # we may need to create a function here to hold another template in case elastic search
     # does not load.
 
+    res = es.search(index="test-rule1", body={"query": {"match_all": {}}})
+
+    hits = res[u'hits'][u'hits']
+    #print >>sys.stderr, hits
+
+    data = hits[0]
+    results = data[u'_source']
+    
+    print >>sys.stderr, results 
     
     latest_question_list = Question.objects.order_by('-pub_date')[:5]
     template = loader.get_template('polls/index.html')
@@ -60,7 +69,17 @@ def addContent( request ):
         print >>sys.stderr, 'Goodbye, cruel world!'
         print >>sys.stderr, element
         print >>sys.stderr, ans
-        list = { element, ans}
+        list = { "hello", element,}
+        #list.append( ans )
+
+        test_dict = {
+        'Question': element,
+            'Answer':ans
+        }
+
+        es = ES('http://127.0.0.1:9200/')
+        res = es.index(index="test-rule1", doc_type='book', body=test_dict)
+        print >>sys.stderr, res
         
         context = RequestContext(request, {
         'post_data': list,

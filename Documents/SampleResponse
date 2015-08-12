@@ -1,0 +1,34 @@
+{
+u'hits': 
+	{
+	u'hits': [
+		{
+		u'_score': 1.0, u'_type': u'book', u'_id': u'AU8gHxIiNcOYoVv8rw6A', u'_source': 
+			{
+			u'Answer': u'Doesn;t have any answer', u'Question': u'My first Question '
+			}, 
+		u'_index': u'test-rule1'
+		}
+	         ], u'total': 1, u'max_score': 1.0
+	}, 
+	u'_shards': 
+		{
+			u'successful': 5, u'failed': 0, u'total': 5
+		}, 
+u'took': 135, u'timed_out': False
+}
+
+result = res[u'hits][u'hits]
+
+Sample Result- :
+
+[
+{
+u'_score': 1.0, u'_type': u'book', u'_id': u'AU8gHxIiNcOYoVv8rw6A', u'_source': 
+	{
+		u'Answer': u'Doesn;t have any answer', u'Question': u'My first Question '
+	}
+, u'_index': u'test-rule1'
+}
+]
+
