@@ -12,7 +12,15 @@
   Find: <input type="text" name="" size="35">
   <input type="submit" value="Add Stuff">
   </form>
+
+
+{% total_hits %}
+<p> { total_hits } number of questions in the database </p>
+{% else %}
+    <p>Nothing in the database yet..</p>
+{% endif %}
   
+
 {% if latest_question_list %}
     <ul>
     {% for question in latest_question_list %}
