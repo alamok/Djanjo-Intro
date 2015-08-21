@@ -14,10 +14,13 @@
   </form>
 
 
-{% total_hits %}
-<p> { total_hits } number of questions in the database </p>
+{% if test_list %}
+  {% for list in test_list %}
+   <div id = "content"><a href="/polls/{{ question.id }}/">{{ question.question_text }}</a></div>
+   <div id = "content">There are {{ list }} results in database</div>
+   {% endfor %}
 {% else %}
-    <p>Nothing in the database yet..</p>
+    <p>No results are available.</p>
 {% endif %}
   
 
