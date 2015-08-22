@@ -16,7 +16,6 @@
 
 {% if test_list %}
   {% for list in test_list %}
-   <div id = "content"><a href="/polls/{{ question.id }}/">{{ question.question_text }}</a></div>
    <div id = "content">There are {{ list }} results in database</div>
    {% endfor %}
 {% else %}
@@ -27,7 +26,7 @@
 {% if latest_question_list %}
     <ul>
     {% for question in latest_question_list %}
-        <div id = "content"><a href="/polls/{{ question.id }}/">{{ question.question_text }}</a></div>
+        <div id = "content"><a href="/polls/{{ question.id }}/">{{ question }}</a></div>
     {% endfor %}
     </ul>
 {% else %}

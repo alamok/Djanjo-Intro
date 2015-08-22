@@ -19,28 +19,39 @@ def index(request):
 
     es = ES('http://127.0.0.1:9200/')
     es.indices.create(index='test-rule1', ignore=400)
-    # we may need to create a function here to hold another template in case elastic search
-    # does not load.
+    # we may need to create a function here to hold
+    # another template in case elastic search does not load.
 
-    res = es.search(index="test-rule1", body={"query": {"match_all": {}}})
+    res = es.search(index="test-rule1",
+                    body={"query": {"match_all": {}}})
 
+    # get the hits data from the search engine .. everything.
     hits = res[u'hits'][u'hits']
-    #print >>sys.stderr, hits
+    
+    # preapre the hits list and add questions into a list.
+    # this list will handle all the questions.
+    questionList = list()
+    
+    for currentHit in hits:
+        source = currentHit[u'_source']
+        currentQuestion = source[u'Question'] 
+        print >>sys.stderr, currentQuestion
+        questionList.append( str(currentQuestion) )
+        print >>sys.stderr, questionList
 
+    # get the total number of results form the database.    
     total_hits = res[u'hits'][u'total']
-    print >>sys.stderr, total_hits;
-        
-    print >>sys.stderr, results 
+    
+    #print >>sys.stderr, total_hits;
 
+    # this list holds the number of results and is passed to template
     results_list = [ total_hits ];
     
-    latest_question_list = Question.objects.order_by('-pub_date')[:5]
     template = loader.get_template('polls/index.html')
     context = RequestContext(request, {
-        'latest_question_list': latest_question_list,
+        'latest_question_list': questionList,
         'test_list': results_list
         })
-    #output = ', '.join([p.question_text for p in latest_question_list])
     return HttpResponse(template.render(context))
 
 def detail(request, question_id):
