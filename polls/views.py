@@ -13,6 +13,11 @@ from django.views.decorators.csrf import csrf_exempt
 from .models import Question
 import sys
 
+class QuestionInfo:
+    def __init__( self, id, text ):
+        self.questionId = id
+        self.questionText = text;
+
 def index(request):
     # test a elastic search connection and create index 
     # if index already exists dont do anything
@@ -31,13 +36,17 @@ def index(request):
     # preapre the hits list and add questions into a list.
     # this list will handle all the questions.
     questionList = list()
+    structList = list()
     
     for currentHit in hits:
         source = currentHit[u'_source']
-        currentQuestion = source[u'Question'] 
-        print >>sys.stderr, currentQuestion
+        currentQuestion = source[u'Question']
+        currentId = currentHit[u'_id']
+        currentStruct = QuestionInfo( str(currentId), str(currentQuestion) );
+        print >>sys.stderr, currentId
         questionList.append( str(currentQuestion) )
-        print >>sys.stderr, questionList
+        structList.append( currentStruct )
+        print >>sys.stderr, currentStruct
 
     # get the total number of results form the database.    
     total_hits = res[u'hits'][u'total']
@@ -49,7 +58,7 @@ def index(request):
     
     template = loader.get_template('polls/index.html')
     context = RequestContext(request, {
-        'latest_question_list': questionList,
+        'latest_question_list': structList,
         'test_list': results_list
         })
     return HttpResponse(template.render(context))
@@ -105,3 +114,10 @@ def addContent( request ):
         #return HttpResponse(template.render( request ) )
         return HttpResponse(template.render( "sorry brow" ) )
         #return render_to_response("polls/test.html", RequestContext(request, {}))
+
+def renderQuestion( request, question_id ):
+    template = loader.get_template('polls/test.html')
+    response = "this is a test"
+    #return HttpResponse( response )
+    return HttpResponse(template.render())
+    
