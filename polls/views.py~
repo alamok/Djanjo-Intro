@@ -27,8 +27,6 @@ def index(request):
     # we may need to create a function here to hold
     # another template in case elastic search does not load.
 
-
-    # There is bug here if no result is found.
     res = es.search(index="test-rule1",
                     body={"query": {"match_all": {}}})
 
