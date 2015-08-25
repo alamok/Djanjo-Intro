@@ -17,4 +17,5 @@ urlpatterns = [
     url('^test/$', views.test, name='test'),
     url('^test/addContent/$', views.addContent, name='addContent'),
     url('^question/(?P<question_id>[0-9]+)/$', views.renderQuestion, name='renderQuestion'),
+    url(r'^question/(?P<id>[\w{}.-]{1,40})/$', views.renderQuestion, name='renderQuestion')
     ]
