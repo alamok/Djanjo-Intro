@@ -117,9 +117,11 @@ def addContent( request ):
         return HttpResponse(template.render( "sorry brow" ) )
         #return render_to_response("polls/test.html", RequestContext(request, {}))
 
-def renderQuestion( request, question_id ):
-    template = loader.get_template('polls/test.html')
+def renderQuestion( request, id ):
+    #template = loader.get_template('polls/test.html')
     response = "this is a test"
     #return HttpResponse( response )
-    return HttpResponse(template.render())
+    #es = ES('http://127.0.0.1:9200/')
+    #res = es.get(index="test-rule1", id)
+    return HttpResponse( id )
     

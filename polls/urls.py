@@ -16,6 +16,8 @@ urlpatterns = [
     # Dont add the leading / from your test url. You should also add a ^ at the beginning of the regex, so that it matches test but not xtest.
     url('^test/$', views.test, name='test'),
     url('^test/addContent/$', views.addContent, name='addContent'),
-    url('^question/(?P<question_id>[0-9]+)/$', views.renderQuestion, name='renderQuestion'),
+    # url('^question/(?P<question_id>[0-9]+)/$', views.renderQuestion, name='renderQuestion'),
+    # name of the input param in url and in function signature in
+    # view should be the same
     url(r'^question/(?P<id>[\w{}.-]{1,40})/$', views.renderQuestion, name='renderQuestion')
     ]
