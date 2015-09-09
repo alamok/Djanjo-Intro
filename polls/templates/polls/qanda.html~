@@ -1,0 +1,29 @@
+{% load staticfiles %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}" />
+
+<DIV id = "container" >
+
+<div id = "header">
+<h1> Questions ..</h1>
+</div>
+
+  <form action="/polls/test/" method="get">  
+  Find: <input type="text" name="" size="35">
+  <input type="submit" value="Add Stuff">
+  </form>  
+
+{% if qus_ans_pair %}
+    <ul>
+        <div id = "content">{{ qus_ans_pair.queText }}</div>
+    </ul>
+{% else %}
+    <p>No polls are available.</p>
+    {% endif %}
+
+    
+<div id = "footer">
+Powered by Organizise
+</div>
+</DIV>
+

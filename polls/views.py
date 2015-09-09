@@ -18,6 +18,11 @@ class QuestionInfo:
         self.questionId = id
         self.questionText = text;
 
+class QueWithAns:
+    def __init__( self, que, ans ):
+        self.queText = que
+        self.ansText = ans;
+
 def index(request):
     # test a elastic search connection and create index 
     # if index already exists dont do anything
@@ -118,10 +123,45 @@ def addContent( request ):
         #return render_to_response("polls/test.html", RequestContext(request, {}))
 
 def renderQuestion( request, id ):
+    #get the response using id and search for the question
+
+    es = ES('http://127.0.0.1:9200/')
+    
+    # There is bug here if no result is found.
+    res = es.search(index="test-rule1",
+                    body={"query": {
+                                "match": {
+                                     "_id" : id
+                                         }
+                                   }
+                         })
+
+    print >>sys.stderr, res
+
+    # get the hits data from the search engine .. everything.
+    hits = res[u'hits'][u'hits']
+    
+    source = hits[0][u'_source']
+    currentQuestion = source[u'Question']
+    currentAnswer = source[u'Answer']
+     
+    currentStruct = QueWithAns( str(currentQuestion), str(currentAnswer) )
+
+    print >>sys.stderr, currentStruct
+
+
+    template = loader.get_template('polls/qanda.html')
+    context = RequestContext(request, {
+        'qus_ans_pair': currentStruct
+        })
+    
+    return HttpResponse(template.render(context))
+
+    
     #template = loader.get_template('polls/test.html')
-    response = "this is a test"
+    #response = "this is a test"
     #return HttpResponse( response )
     #es = ES('http://127.0.0.1:9200/')
     #res = es.get(index="test-rule1", id)
-    return HttpResponse( id )
+    #return HttpResponse( id )
     

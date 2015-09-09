@@ -1,0 +1,33 @@
+{% load staticfiles %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}" />
+
+<DIV id = "container" >
+
+<div id = "header">
+<h1> Questions ..</h1>
+</div>
+
+
+{% if qus_ans_pair %}
+    <ul>
+        <div id = "content">Question: {{ qus_ans_pair.queText }}</div>
+    </ul>
+    <ul>
+        <div id = "content">Answer: {{ qus_ans_pair.ansText }}</div>
+    </ul>
+{% else %}
+    <p>Invalid Question.</p>
+    {% endif %}
+
+    
+ <form action="/polls/" method="get">  
+  <input type="submit" value="Goto Home">
+ </form>
+
+    
+<div id = "footer">
+Powered by Organizise
+</div>
+</DIV>
+
