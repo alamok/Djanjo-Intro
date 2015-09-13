@@ -84,7 +84,75 @@ def test( request ):
     template = loader.get_template('polls/test.html')
     response = "this is a test"
     #return HttpResponse( response )
-    return HttpResponse(template.render())
+    return HttpResponse(template.render()) 
+
+@csrf_exempt
+def search( request ):
+    template = loader.get_template('polls/search.html')
+    searchStr = 'No text in search :-('
+    if request.method == 'POST':
+        searchStr = request.POST.get("stext", "" )
+    #if request.POST.get('que', true):
+    if "que" in request.POST.keys():
+        searchStr = 'Question is ticked'
+    response = searchStr
+    #return HttpResponse( response )
+    #return HttpResponse(template.render())
+
+    es = ES('http://127.0.0.1:9200/')
+    es.indices.create(index='test-rule1', ignore=400)
+    # we may need to create a function here to hold
+    # another template in case elastic search does not load.
+
+    # There is bug here if no result is found.
+
+    # There is bug here if no result is found.
+    res = es.search(index="test-rule1",
+                    body={"query": {
+                                "match": {
+                                     "Question" : searchStr
+                                         }
+                                   }
+                         }
+    )
+
+
+
+    
+    # get the hits data from the search engine .. everything.
+    hits = res[u'hits'][u'hits']
+    
+    # preapre the hits list and add questions into a list.
+    # this list will handle all the questions.
+    questionList = list()
+    structList = list()
+    
+    for currentHit in hits:
+        source = currentHit[u'_source']
+        currentQuestion = source[u'Question']
+        currentId = currentHit[u'_id']
+        currentStruct = QuestionInfo( str(currentId), str(currentQuestion) );
+        print >>sys.stderr, currentId
+        questionList.append( str(currentQuestion) )
+        structList.append( currentStruct )
+        print >>sys.stderr, currentStruct
+
+    # get the total number of results form the database.    
+    total_hits = res[u'hits'][u'total']
+    
+    #print >>sys.stderr, total_hits;
+
+    # this list holds the number of results and is passed to template
+    results_list = [ total_hits ];
+    
+    template = loader.get_template('polls/search.html')
+    context = RequestContext(request, {
+        'latest_question_list': structList,
+        'test_list': results_list
+        })
+    return HttpResponse(template.render(context))
+
+
 
 #This is how get get rid of bloody csrf after you could't properly
 #fix it after 1 hour of googleing... jesus
@@ -134,10 +202,9 @@ def renderQuestion( request, id ):
                                      "_id" : id
                                          }
                                    }
-                         })
-
-    print >>sys.stderr, res
-
+                         }
+    )
+    
     # get the hits data from the search engine .. everything.
     hits = res[u'hits'][u'hits']
     
@@ -147,21 +214,9 @@ def renderQuestion( request, id ):
      
     currentStruct = QueWithAns( str(currentQuestion), str(currentAnswer) )
 
-    print >>sys.stderr, currentStruct
-
-
     template = loader.get_template('polls/qanda.html')
     context = RequestContext(request, {
         'qus_ans_pair': currentStruct
         })
     
-    return HttpResponse(template.render(context))
-
-    
-    #template = loader.get_template('polls/test.html')
-    #response = "this is a test"
-    #return HttpResponse( response )
-    #es = ES('http://127.0.0.1:9200/')
-    #res = es.get(index="test-rule1", id)
-    #return HttpResponse( id )
-    
+    return HttpResponse(template.render(context))    

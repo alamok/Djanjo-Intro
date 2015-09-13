@@ -5,25 +5,12 @@
 <DIV id = "container" >
 
 <div id = "header">
-<h1> Questions ..</h1>
+<h1> Your Search Results ..</h1>
 </div>
-
-<form action="/polls/search/" method="post">
-  Find: <input type="text" name="stext" value="Search Query" size="35">
-
-  <input type="radio" name="Input" value="Questions" checked>Questions
-  <input type="radio" name="Input" value="Answers">Answers
-  <input type="radio" name="Input" value="All">All
-  <input type="submit" value="Search">
-  </form>
-
-  <form action="/polls/test/" method="get">
-  <input type="submit" value="Add Stuff">
-  </form> 
 
 {% if test_list %}
   {% for list in test_list %}
-   <div id = "content">There are {{ list }} results in database</div>
+   <div id = "content">There are {{ list }} matching results in database</div>
    {% endfor %}
 {% else %}
     <p>No results are available.</p>
@@ -38,7 +25,13 @@
     </ul>
 {% else %}
     <p>No polls are available.</p>
-{% endif %}
+    {% endif %}
+
+ <form action="/polls/" method="get">  
+  <input type="submit" value="Goto Home">
+ </form>
+
+    
 <div id = "footer">
 Powered by Organizise
 </div>
