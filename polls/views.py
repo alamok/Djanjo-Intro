@@ -93,8 +93,17 @@ def search( request ):
     if request.method == 'POST':
         searchStr = request.POST.get("stext", "" )
     #if request.POST.get('que', true):
-    if "que" in request.POST.keys():
-        searchStr = 'Question is ticked'
+
+    lookUpIn = "_all"
+    
+    if request.POST['Input'] == "Question":
+        lookUpIn = "Questions"
+        
+    if request.POST['Input'] == "Answers":
+        lookUpIn = "Answer"
+        
+    print >>sys.stderr, lookUpIn
+    
     response = searchStr
     #return HttpResponse( response )
     #return HttpResponse(template.render())
@@ -110,7 +119,7 @@ def search( request ):
     res = es.search(index="test-rule1",
                     body={"query": {
                                 "match": {
-                                     "Question" : searchStr
+                                     lookUpIn : searchStr
                                          }
                                    }
                          }
