@@ -22,7 +22,7 @@ class QueWithAns:
     def __init__( self, que, ans ):
         self.queText = que
         self.ansText = ans;
-
+        
 def index(request):
     # test a elastic search connection and create index 
     # if index already exists dont do anything
@@ -62,11 +62,17 @@ def index(request):
 
     # this list holds the number of results and is passed to template
     results_list = [ total_hits ];
+    total_pages = total_hits/10;
+
+    page_list =[]
+    for count in range(0,total_pages + 1):
+        page_list.append(count)
     
     template = loader.get_template('polls/index.html')
     context = RequestContext(request, {
         'latest_question_list': structList,
-        'test_list': results_list
+        'test_list': results_list,
+        'pages': page_list
         })
     return HttpResponse(template.render(context))
 
@@ -114,8 +120,6 @@ def search( request ):
     # another template in case elastic search does not load.
 
     # There is bug here if no result is found.
-
-    # There is bug here if no result is found.
     res = es.search(index="test-rule1",
                     body={"query": {
                                 "match": {
@@ -124,9 +128,6 @@ def search( request ):
                                    }
                          }
     )
-
-
-
     
     # get the hits data from the search engine .. everything.
     hits = res[u'hits'][u'hits']
@@ -176,7 +177,7 @@ def addContent( request ):
         print >>sys.stderr, 'Goodbye, cruel world!'
         print >>sys.stderr, element
         print >>sys.stderr, ans
-        list = { "hello", element,}
+        list = { element, ans}
         #list.append( ans )
 
         test_dict = {

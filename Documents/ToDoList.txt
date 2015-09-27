@@ -1,0 +1,6 @@
+Item on top being with most precedence
+
+- Pagination in results
+- Flexible text boxes when adding questions with answers.
+- Question/Answer should be rendered in a crisp way.
+- Handling hyperlinks, new lines, bullets in answers 

@@ -23,7 +23,7 @@
 
 {% if test_list %}
   {% for list in test_list %}
-   <div id = "content">There are {{ list }} results in database</div>
+   <div id = "content">There are {{ list }} results in database. Some of them ..</div>
    {% endfor %}
 {% else %}
     <p>No results are available.</p>
@@ -38,8 +38,15 @@
     </ul>
 {% else %}
     <p>No polls are available.</p>
+    {% endif %}
+
+{% if pages %}
+    {% for current_page in pages %}
+    <a href="/polls/">{{ current_page }}</a> |
+    {% endfor %}
 {% endif %}
-<div id = "footer">
+    
+    <div id = "footer">
 Powered by Organizise
 </div>
 </DIV>
