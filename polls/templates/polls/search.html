@@ -31,6 +31,14 @@
   <input type="submit" value="Goto Home">
  </form>
 
+
+<form action="/polls/search/" method="post">
+{% if pages %}
+    {% for current_page in pages %}
+<input type="submit" name="s_page" value={{ current_page }}>
+    {% endfor %}
+{% endif %}
+</form> 
     
 <div id = "footer">
 Powered by Organizise

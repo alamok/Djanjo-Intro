@@ -22,7 +22,8 @@ class QueWithAns:
     def __init__( self, que, ans ):
         self.queText = que
         self.ansText = ans;
-        
+
+@csrf_exempt
 def index(request):
     # test a elastic search connection and create index 
     # if index already exists dont do anything
@@ -32,10 +33,21 @@ def index(request):
     # we may need to create a function here to hold
     # another template in case elastic search does not load.
 
+    currentPage = 0
+    if request.method == 'POST':
+        currentPage = request.POST.get("page", "" )
+        print >>sys.stderr, "currentPAge"
+        print >>sys.stderr, request.POST.get("page", "" )
 
+    fromCount = 0
+    fromCount = int( currentPage ) * int( 10 );
+    print >>sys.stderr, fromCount
+    
     # There is bug here if no result is found.
     res = es.search(index="test-rule1",
-                    body={"query": {"match_all": {}}})
+                    body={"query": {"match_all": {}},
+                          "from": fromCount }
+    )
 
     # get the hits data from the search engine .. everything.
     hits = res[u'hits'][u'hits']
@@ -97,7 +109,7 @@ def search( request ):
     template = loader.get_template('polls/search.html')
     searchStr = 'No text in search :-('
     if request.method == 'POST':
-        searchStr = request.POST.get("stext", "" )
+        searchStr = request.POST.get("stext", "" ) 
     #if request.POST.get('que', true):
 
     lookUpIn = "_all"
@@ -107,6 +119,7 @@ def search( request ):
         
     if request.POST['Input'] == "Answers":
         lookUpIn = "Answer"
+
         
     print >>sys.stderr, lookUpIn
     
@@ -119,6 +132,18 @@ def search( request ):
     # we may need to create a function here to hold
     # another template in case elastic search does not load.
 
+    currentPage = 0
+    if request.method == 'POST':
+        currentPage = request.POST.get("s_page", "" )
+        print >>sys.stderr, "currentPAge"
+        print >>sys.stderr, request.POST.get("s_page", "" )
+
+    fromCount = 0
+    if isinstance( currentPage, int ):
+        fromCount = int( currentPage ) * int( 10 );
+    
+    print >>sys.stderr, fromCount
+    
     # There is bug here if no result is found.
     res = es.search(index="test-rule1",
                     body={"query": {
@@ -156,9 +181,18 @@ def search( request ):
     results_list = [ total_hits ];
     
     template = loader.get_template('polls/search.html')
+
+    results_list = [ total_hits ];
+    total_pages = total_hits/10;
+
+    page_list =[]
+    for count in range(0,total_pages + 1):
+        page_list.append(count)
+    
     context = RequestContext(request, {
         'latest_question_list': structList,
-        'test_list': results_list
+        'test_list': results_list,
+        'pages': page_list
         })
     return HttpResponse(template.render(context))
 

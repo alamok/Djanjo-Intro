@@ -8,7 +8,7 @@
 <h1> Questions ..</h1>
 </div>
 
-<form action="/polls/search/" method="post">
+<form action="/polls/search/" method="get">
   Find: <input type="text" name="stext" value="Search Query" size="35">
 
   <input type="radio" name="Input" value="Questions" checked>Questions
@@ -40,11 +40,15 @@
     <p>No polls are available.</p>
     {% endif %}
 
+
+<form action="/polls/" method="post">
 {% if pages %}
     {% for current_page in pages %}
-    <a href="/polls/">{{ current_page }}</a> |
+<input type="submit" name="page" value={{ current_page }}>
     {% endfor %}
 {% endif %}
+</form>
+    
     
     <div id = "footer">
 Powered by Organizise
