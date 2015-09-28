@@ -112,16 +112,20 @@ def search( request ):
         searchStr = request.POST.get("stext", "" ) 
     #if request.POST.get('que', true):
 
-    lookUpIn = "_all"
+    searchStr = ""
+    Input = "_all"
     
-    if request.POST['Input'] == "Question":
-        lookUpIn = "Questions"
+    if request.GET['Input']:
+        Input = request.GET['Input']
         
-    if request.POST['Input'] == "Answers":
-        lookUpIn = "Answer"
+    if request.GET['stext']:
+        searchStr = request.GET['stext']
 
-        
+    lookUpIn = Input
+
+    print >>sys.stderr, "DATA"
     print >>sys.stderr, lookUpIn
+    print >>sys.stderr, searchStr
     
     response = searchStr
     #return HttpResponse( response )
