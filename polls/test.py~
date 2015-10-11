@@ -1,0 +1,9 @@
+from django.test import TestCase
+from myapp.models import Animal
+
+class AnimalTestCase(TestCase):
+    def setUp(self):
+
+    def test_animals_can_speak(self):
+        self.assertEqual( 'The lion says "roar"', 'The lion says "roar"')
+        self.assertEqual( 'The cat says "meow"', 'The cat says "meow"')

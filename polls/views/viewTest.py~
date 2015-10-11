@@ -1,0 +1,5 @@
+def test( request ):
+    template = loader.get_template('polls/test.html')
+    response = "this is a test"
+    #return HttpResponse( response )
+    return HttpResponse(template.render()) 

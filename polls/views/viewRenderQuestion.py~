@@ -1,0 +1,56 @@
+from django.shortcuts import render
+
+# Create your views here.
+
+from django.http import HttpResponse
+from django.template import RequestContext, loader
+from elasticsearch import Elasticsearch as ES
+from django import forms
+#This is how get get rid of bloody csrf after you could't properly
+#fix it after 1 hour of googleing... jesus
+from django.views.decorators.csrf import csrf_exempt
+
+import sys
+
+class QuestionInfo:
+    def __init__( self, id, text ):
+        self.questionId = id
+        self.questionText = text;
+
+class QueWithAns:
+    def __init__( self, que, ans ):
+        self.queText = que
+        self.ansText = ans;
+
+
+def renderQuestion( request, id ):
+    #get the response using id and search for the question
+
+    es = ES('http://127.0.0.1:9200/')
+    
+    # There is bug here if no result is found.
+    res = es.search(index="test-rule1",
+                    body={"query": {
+                                "match": {
+                                     "_id" : id
+                                         }
+                                   }
+                         }
+    )
+    
+    # get the hits data from the search engine .. everything.
+    hits = res[u'hits'][u'hits']
+    
+    source = hits[0][u'_source']
+    currentQuestion = source[u'Question']
+    currentAnswer = source[u'Answer']
+     
+    currentStruct = QueWithAns( str(currentQuestion), str(currentAnswer) )
+
+    template = loader.get_template('polls/qanda.html')
+    context = RequestContext(request, {
+        'qus_ans_pair': currentStruct
+        })
+    
+    return HttpResponse(template.render(context))    
+ 

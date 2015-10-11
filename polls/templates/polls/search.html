@@ -32,13 +32,11 @@
  </form>
 
 
-<form action="/polls/search/" method="post">
 {% if pages %}
-    {% for current_page in pages %}
-<input type="submit" name="s_page" value={{ current_page }}>
+ {% for current_page in pages %}
+       <a href="/polls/search/?stext={{ s_str }}&Input={{ i_type }}&page={{ current_page }}">{{ current_page }}</a>
     {% endfor %}
 {% endif %}
-</form> 
     
 <div id = "footer">
 Powered by Organizise
