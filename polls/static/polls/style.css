@@ -15,6 +15,7 @@ body {
     height: 800px;
     margin-left: auto;
     margin-right:auto;
+    font-family: Calibri,Candara,Segoe,Segoe UI,Optima,Arial,sans-serif;
 }
 
 #header{   
@@ -32,16 +33,25 @@ body {
 
 #content{
     padding: 10px;
-    background-color: green;
+    background-color: #F3F9F1;
     width: 600px;
     float: right;
 }
 
+#pagelist{
+    clear: both;
+    margin: 0 auto;
+    float: right;
+    padding: 5px;
+}
+
 #footer{
     clear: both;
-    bottom: 200px;
+    bottom: 140px;
     padding: 5px;
     position: absolute;
+    /*background-color: white;*/
+    color: black;
 }
 
 /* elements starting with # are div elements */

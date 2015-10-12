@@ -31,12 +31,14 @@
   <input type="submit" value="Goto Home">
  </form>
 
-
+<div id = "pagelist">
 {% if pages %}
+Switch to Page 
  {% for current_page in pages %}
        <a href="/polls/search/?stext={{ s_str }}&Input={{ i_type }}&page={{ current_page }}">{{ current_page }}</a>
     {% endfor %}
 {% endif %}
+</div>
     
 <div id = "footer">
 Powered by Organizise

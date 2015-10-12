@@ -10,17 +10,15 @@
 
 <form action="/polls/search/" method="get">
   Find: <input type="text" name="stext" value="Search Query" size="35">
-
   <input type="radio" name="Input" value="Question" checked>Questions
   <input type="radio" name="Input" value="Answer">Answers
   <input type="radio" name="Input" value="_all">All
-  <input type="" name="page" value="0">
   <input type="submit" value="Search">
-  </form>
+</form>
 
-  <form action="/polls/test/" method="get">
+<form action="/polls/test/" method="get">
   <input type="submit" value="Add Stuff">
-  </form> 
+</form> 
 
 {% if test_list %}
   {% for list in test_list %}
@@ -44,6 +42,7 @@
 
 <form action="/polls/" method="post">
 {% if pages %}
+Switch to Page<br>
     {% for current_page in pages %}
 <input type="submit" name="page" value={{ current_page }}>
     {% endfor %}

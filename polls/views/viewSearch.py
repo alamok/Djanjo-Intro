@@ -14,7 +14,7 @@ from django.http import HttpResponse
 from django.template import RequestContext, loader
 from elasticsearch import Elasticsearch as ES
 from django.views.decorators.csrf import csrf_exempt
-
+import sys
 # #print >>sys.stderr, "currentPAge"
 
 class QuestionInfo:
@@ -38,25 +38,17 @@ def search( request ):
     if request.GET['stext']:
         searchStr = request.GET['stext']
 
-    if request.GET['page']:
+    pageStat = request.GET.get('page')
+    if pageStat is not None and pageStat !='':
         fromCount = request.GET['page']
 
-    if isinstance( fromCount, int ):
-        fromCount = int( fromCount ) * int( 10 );
-    
+    print >>sys.stderr, fromCount
+    fromCount = int( fromCount ) * int( 10 );
 
     lookUpIn = Input
     es = ES('http://127.0.0.1:9200/')
     es.indices.create(index='test-rule1', ignore=400)
-    
-    currentPage = 0
-    if request.method == 'POST':
-        currentPage = request.POST.get("s_page", "" )
-        
-    fromCount = 0
-    if isinstance( currentPage, int ):
-        fromCount = int( currentPage ) * int( 10 );
-    
+
     # There is bug here if no result is found.
     res = es.search( index="test-rule1", body= {
         "query": {
