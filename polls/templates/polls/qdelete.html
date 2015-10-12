@@ -1,0 +1,20 @@
+{% load staticfiles %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}" />
+
+<DIV id = "container" >
+
+<div id = "header">
+<h1> Delete..</h1>
+</div>
+
+       <b> <div id = "content">The question is deleted.</div></b>
+    
+ <form action="/polls/" method="get">  
+  <input type="submit" value="Goto Home">
+ </form>
+    
+<div id = "footer">
+Powered by Organizise
+</div>
+</DIV>

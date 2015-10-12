@@ -4,3 +4,4 @@ from viewTest import test
 from viewSearch import search
 from viewAddContent import addContent
 from viewRenderQuestion import renderQuestion
+from viewDeleteQuestion import deleteQuestion

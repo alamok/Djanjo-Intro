@@ -20,5 +20,6 @@ urlpatterns = [
     # url('^question/(?P<question_id>[0-9]+)/$', views.renderQuestion, name='renderQuestion'),
     # name of the input param in url and in function signature in
     # view should be the same
-    url(r'^question/(?P<id>[\w{}.-]{1,40})/$', views.renderQuestion, name='renderQuestion')
+    url(r'^question/(?P<id>[\w{}.-]{1,40})/$', views.renderQuestion, name='renderQuestion'),
+    url(r'^delete/(?P<id>[\w{}.-]{1,40})/$', views.deleteQuestion, name='deleteQuestion')
     ]
